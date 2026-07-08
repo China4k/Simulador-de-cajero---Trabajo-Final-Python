@@ -127,3 +127,33 @@ def transferencia_cajero(total_usuarios, usuario):
     else:
         print("\nEl usuario de destino no existe.")
     return total_usuarios
+def cajero(total_usuarios, usuario):
+    limite_diario = 200000
+    while True:
+        print("\n1. Consultar saldo\n2. Extraer dinero\n3. Realizar un depósito\n4. Realizar transferencia\n5. Salir\n")
+        opcion_cajero = input("Seleccione una opción: ")
+
+        if opcion_cajero == "1":
+            print(f"\nSu saldo disponible es de: ${str(total_usuarios[usuario][1])}")
+
+        elif opcion_cajero == "5":
+            print("\nCerrando sesión...")
+            break
+
+    return total_usuarios
+
+while True:
+    seleccion_menu = bienvenida()
+
+    if seleccion_menu == "1":
+        usuario = login(total_usuarios)
+        if usuario != False:
+            total_usuarios = cajero(total_usuarios, usuario)
+            print("\n   Sesión Finalizada")
+
+    elif seleccion_menu == "2":
+        total_usuarios = registrar_usuario(total_usuarios)
+
+    else:
+        print("\n¡Hasta luego!")
+        break
