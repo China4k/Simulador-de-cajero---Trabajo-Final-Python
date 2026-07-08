@@ -62,7 +62,7 @@ def login(total_usuarios):
     return False
 
     
- def deposito_cajero(total_usuarios,usuario):
+def deposito_cajero(total_usuarios,usuario):
     saldo = int(total_usuarios[usuario][1])
     deposito_exitoso = False
     while not deposito_exitoso:
