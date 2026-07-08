@@ -60,3 +60,21 @@ def login(total_usuarios):
             print(f"\nUsuario o contraseña incorrectos. Te quedan {3 - intentos} intentos.")
     print("\nTarjeta bloqueada por motivos de seguridad.")
     return False
+
+    
+    def deposito_cajero(total_usuarios,usuario):
+    saldo = int(total_usuarios[usuario][1])
+    deposito_exitoso = False
+    while not deposito_exitoso:
+        try:
+            deposito = int(input(f"\nIngrese el monto que desea depositar: $"))
+            if deposito <= 0:
+                print("\nError. El monto debe ser positivo")
+            else:
+                total_usuarios[usuario][1] = str(saldo + deposito)
+                print("\nDepósito realizado con éxito.")
+                deposito_exitoso = True
+        except ValueError:
+            print("\nError. Ingrese un valor numérico válido.")
+    guardar(total_usuarios)
+    return total_usuarios
