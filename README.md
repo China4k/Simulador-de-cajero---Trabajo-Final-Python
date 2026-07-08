@@ -38,4 +38,5 @@ Durante el desarrollo del proyecto se utilizó Gemini como herramienta de apoyo 
 2. **Consultas técnicas:** Resolución de dudas puntuales acerca del desarrollo de funciones específicas y el empleo de estructuras de control.
 3. **Depuración de código:** Diagnóstico de fallos durante las pruebas, junto con alternativas para su resolución.
 4. **Optimización general:** Sugerir mejoras en las validaciones, la modularización y la presentación del sistema.
- **Cabe destacar que cada una de las propuestas generadas por Gemini fueron analizadas, adaptadas e integradas por el grupo, asegurando la comprensión total de la lógica antes de su incorporación definitiva al repositorio.**
+
+**Cabe destacar que cada una de las propuestas generadas por Gemini fueron analizadas, adaptadas e integradas por el grupo, asegurando la comprensión total de la lógica antes de su incorporación definitiva al repositorio.**
