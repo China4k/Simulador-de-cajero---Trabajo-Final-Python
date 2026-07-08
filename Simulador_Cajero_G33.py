@@ -47,15 +47,13 @@ def login(total_usuarios):
     #Valida el acceso leyendo desde el Usuarios_Registrados.txt.
     print("\n INICIO DE SESIÓN \n")
     intentos = 0  # contador para intentos
-
     while intentos < 3:
         inicio_usuario = input("Ingrese su usuario: ")
         inicio_contraseña = input("Ingrese su contraseña: ")
-        try:
-            if inicio_contraseña == total_usuarios[inicio_usuario][0]:
-                print("\n   ¡Bienvenido!")
-                return inicio_usuario
-        except KeyError:
+        if inicio_usuario in total_usuarios and inicio_contraseña == total_usuarios[inicio_usuario][0]:
+            print("\n   ¡Bienvenido!")
+            return inicio_usuario
+        else:
             intentos += 1
             print(f"\nUsuario o contraseña incorrectos. Te quedan {3 - intentos} intentos.")
     print("\nTarjeta bloqueada por motivos de seguridad.")
@@ -127,33 +125,36 @@ def transferencia_cajero(total_usuarios, usuario):
     else:
         print("\nEl usuario de destino no existe.")
     return total_usuarios
+    
 def cajero(total_usuarios, usuario):
     limite_diario = 200000
     while True:
         print("\n1. Consultar saldo\n2. Extraer dinero\n3. Realizar un depósito\n4. Realizar transferencia\n5. Salir\n")
         opcion_cajero = input("Seleccione una opción: ")
-
         if opcion_cajero == "1":
             print(f"\nSu saldo disponible es de: ${str(total_usuarios[usuario][1])}")
-
+        elif opcion_cajero == "2":
+            total_usuarios, limite_diario = extraccion_cajero(total_usuarios, usuario, limite_diario)
+        elif opcion_cajero == "3":
+            total_usuarios = deposito_cajero(total_usuarios, usuario)
+        elif opcion_cajero == "4":
+            total_usuarios = transferencia_cajero(total_usuarios, usuario)
         elif opcion_cajero == "5":
             print("\nCerrando sesión...")
             break
-
+        else:
+            print("\nOpción inválida. Elija 1, 2, 3, 4 o 5 para salir.")
     return total_usuarios
 
 while True:
-    seleccion_menu = bienvenida()
-
+    seleccion_menu = bienvenida() #muestra el menú y guarda la opción elegida
     if seleccion_menu == "1":
-        usuario = login(total_usuarios)
+        usuario = login(total_usuarios) #para iniciar sesión
         if usuario != False:
             total_usuarios = cajero(total_usuarios, usuario)
             print("\n   Sesión Finalizada")
-
     elif seleccion_menu == "2":
         total_usuarios = registrar_usuario(total_usuarios)
-
     else:
-        print("\n¡Hasta luego!")
+        print("\n¡Hasta luego!") #3 es la opción para salir
         break
