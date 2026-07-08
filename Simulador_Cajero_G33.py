@@ -25,37 +25,5 @@ def guardar(total_usuarios):
     with open(ARCHIVO, "w") as archivo:
         for usuario in total_usuarios.keys():
             archivo.write(f"{usuario},{total_usuarios[usuario][0]},{total_usuarios[usuario][1]}\n")
-def registrar_usuario(total_usuarios):
-    #Crea un usuario nuevo y lo guarda en el archivo de texto "usuarios".
-    print("\n REGISTRO DE NUEVO USUARIO \n")
-    usuario = input("Ingrese nuevo nombre de usuario: ")
-    if not usuario in total_usuarios.keys():
-        contraseña = input("Ingrese una contraseña de 4 dígitos: ")
-        saldo = 2000000
-        while len(contraseña) != 4 or not contraseña.isdigit():
-            print("\nError la contraseña debe tener 4 dígitos númericos: ")
-            contraseña = input("\nIngrese contraseña válida: ")
-        total_usuarios[usuario] = [contraseña, saldo]
-        print("\n¡Usuario registrado!")
-        guardar(total_usuarios)
-    else:
-        print("\nEl usuario ya existe")
-    return(total_usuarios)
+            
 
-def login(total_usuarios):
-    #Valida el acceso leyendo desde el Usuarios_Registrados.txt.
-    print("\n INICIO DE SESIÓN \n")
-    intentos = 0  # contador para intentos
-
-    while intentos < 3:
-        inicio_usuario = input("Ingrese su usuario: ")
-        inicio_contraseña = input("Ingrese su contraseña: ")
-        try:
-            if inicio_contraseña == total_usuarios[inicio_usuario][0]:
-                print("\n   ¡Bienvenido!")
-                return inicio_usuario
-        except KeyError:
-            intentos += 1
-            print(f"\nUsuario o contraseña incorrectos. Te quedan {3 - intentos} intentos.")
-    print("\nTarjeta bloqueada por motivos de seguridad.")
-    return False
