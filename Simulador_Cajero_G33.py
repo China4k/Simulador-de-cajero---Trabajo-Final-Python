@@ -61,6 +61,31 @@ def login(total_usuarios):
     print("\nTarjeta bloqueada por motivos de seguridad.")
     return False
 
+def extraccion_cajero(total_usuarios,usuario,limite_diario):
+    saldo = int(total_usuarios[usuario][1])
+    extraccion_exitosa = False
+    while not extraccion_exitosa:
+        try:
+            extraccion = int(input(f"\nIngrese el monto que desea extraer (múltiplos de $1000): $"))
+            if extraccion % 1000 != 0:
+                print("\nError. Ingrese un monto múltiplo de $1000")
+            elif extraccion <= 0:
+                print("\nError. El monto debe ser positivo")
+            elif extraccion > limite_diario:
+                print(f"\nEl monto ingresado supera el límite de extracción diaria ${limite_diario}")
+                extraccion_exitosa = True
+            elif extraccion > saldo:
+                print(f"\nSaldo insuficiente \nSu saldo es de ${saldo}")
+                return total_usuarios, limite_diario
+            else:
+                total_usuarios[usuario][1] = str(saldo - extraccion) 
+                limite_diario = limite_diario - extraccion
+                print("\nExtracción realizada con éxito. Retire su dinero.")
+                extraccion_exitosa = True
+        except ValueError:
+            print("\nError. Ingrese un valor numérico válido.")
+    guardar(total_usuarios)
+    return total_usuarios, limite_diario
     
 def deposito_cajero(total_usuarios,usuario):
     saldo = int(total_usuarios[usuario][1])
@@ -77,4 +102,28 @@ def deposito_cajero(total_usuarios,usuario):
         except ValueError:
             print("\nError. Ingrese un valor numérico válido.")
     guardar(total_usuarios)
+    return total_usuarios
+
+def transferencia_cajero(total_usuarios, usuario):
+    saldo = int(total_usuarios[usuario][1])
+    cuenta_destino = input(f"\nIngrese el usuario de la cuenta destino: ")
+    if cuenta_destino in total_usuarios.keys():
+        # Si existe, recién ahí pide la plata
+        try:
+            monto_transferir = int(input(f"Ingrese el monto a transferir a {cuenta_destino}: $"))
+            if total_usuarios[cuenta_destino] == total_usuarios[usuario] :
+                print("\nError. No puede transferirse a si mismo")
+            elif monto_transferir <= 0:
+                print("\nError. El monto debe ser positivo")
+            elif monto_transferir > saldo:
+                print(f"\nSaldo insuficiente \nSu saldo es de ${saldo}")
+            else:
+                total_usuarios[cuenta_destino][1] = str(saldo + monto_transferir)
+                total_usuarios[usuario][1] = str(saldo - monto_transferir)
+                guardar(total_usuarios)
+                print(f"\n¡Transferencia realizada con éxito a {cuenta_destino}!")
+        except ValueError:
+            print("\nError. Ingrese un valor numérico válido.")
+    else:
+        print("\nEl usuario de destino no existe.")
     return total_usuarios
