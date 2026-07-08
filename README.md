@@ -25,6 +25,9 @@ Durante el desarrollo se implementaron funciones, estructuras condicionales para
 - Transferencias entre usuarios.
 - Menú interactivo con validación de opciones.
 
+## Video demo del sistema implementado
+[Ver video en YouTube](https://www.youtube.com/watch?v=yT9EjgKgTcQ)
+
 ## INSTRUCCIONES DE EJECUCIÓN
 1. Descargar o clonar este repositorio.
 2. Abrir la carpeta del proyecto en Visual Studio Code o cualquier otro editor compatible con Python.
